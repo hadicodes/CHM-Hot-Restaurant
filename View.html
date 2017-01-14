@@ -53,8 +53,28 @@
             </div>
         </footer>
     </div>
-</body>
-<script type="text/javascript">
-</script>
+    <script type="text/javascript">
 
+        $.get("/api/tables", function(data) {
+            for (var i = 0; i < data.length; i++) {
+                var newWell = $("<div class='well'>");
+                newWell.attr("id", "reservation-well-" + i);
+                newWell.append("<span style='font-size: 24px' class='label label-primary'>" + (i + 1) + '</span>');
+                newWell.append("<span style='font-size: 24px; font-weight: bold;'> | " + data[i].customerID + '</span>');
+                $("#reservation-section").append(newWell);
+            }
+        });
+
+        $.get("/api/waitlist", function(data) {
+            for (var i = 0; i < data.length; i++) {
+                var newWell = $("<div class='well'>");
+                newWell.attr("id", "waitlist-well-" + i);
+                newWell.append("<span style='font-size: 24px' class='label label-primary'>" + (i + 1) + '</span>');
+                newWell.append("<span style='font-size: 24px; font-weight: bold;'> | " + data[i].customerID + '</span>');
+                $("#waitlist-section").append(newWell);
+            }
+        });
+
+    </script>
+</body>
 </html>

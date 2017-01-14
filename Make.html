@@ -63,8 +63,31 @@
             </div>
         </footer>
     </div>
+
+    <script type="text/javascript">
+        $("#add-btn").on("click", function(event) {
+            event.preventDefault();
+
+            var newReservation = {
+                customerName: $("#name").val().trim(),
+                phoneNumber: $("#phone").val().trim(),
+                customerEmail: $("#email").val().trim(),
+                customerID: $("#uniqueID").val().trim()
+            };
+
+            $.post("/api/new", newReservation)
+                .done(function(data) {
+                    console.log(data);
+                    if (data === 'reservations') {
+                        alert('Reservation created!');
+                    } else {
+                        alert('You have been added to the wait list.');
+                    }
+                });
+
+        });
+    </script>
 </body>
 
 </html>
-<script type="text/javascript">
-</script>
+
