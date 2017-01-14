@@ -1,7 +1,7 @@
 ////DEPENDENCIES////  
 var express = require('express'); 
 var path = require('path'); 
-var bodyParser = require('bodyParser'); 
+var bodyParser = require('body-parser');
 ////SET UP EXPRESS APP//// 
 var app = express();
 var PORT = 3000;
@@ -9,42 +9,54 @@ var PORT = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 /////////CUSTOMER DATA//////////
-var customer = [{
-	customerName:" ", 
-	phoneNumber: " ", 
-	customerEmail:" ", 
-	customerID:" "
-}]; 
-//display list of all reservations 
-app.get("/api/:customer?", function(res,req){ 
+
+var reservations = [];
+
+var waitlist = [];
+
+// JSON/API GET routes
+app.get('/api/tables', function(req, res) {
+    res.json(reservations);
+});
+
+app.get('/api/waitlist', function(req, res) {
+    res.json(waitlist);
+});
+
+// API POST route
+app.post('/api/new', function(req, res) {
+    var newReservation = req.body;
+
+    if (reservations.length < 5) {
+        reservations.push(newReservation);
+        res.json({type: 'reserved'});
+    } else {
+        waitlist.push(newReservation);
+        res.json({type: 'waitlisted'});
+    }
 
 });
-//make a reservation 
-app.post(" ",function(res,req){ 
-
-
-});  
 
 //ROUTING 
 //===============================================//
 //routing to the homepage 
-app.get("/", function(req, res){
-	res.sendFile(path.join(__dirname, "home.html"));  
+app.get('/', function(req, res){
+	res.sendFile(path.join(__dirname, 'home.html'));  
 }); 
 //routing to the page to make a reservation// 
-app.get("/make", function(req, res){ 
-	res.sendFile(path.join(__dirname, "make.html")); 
+app.get('/make', function(req, res){ 
+	res.sendFile(path.join(__dirname, 'make.html')); 
 }); 
 ///routing to the page to list all reservations 
-app.get("/view",function(req, res){ 
-	res.sendFile(path.join(__dirname, "view.html")); 
+app.get('/view',function(req, res){ 
+	res.sendFile(path.join(__dirname, 'view.html')); 
 }); 
 
 //STARTS THE SERVER LISTENING FOR REQUESTS 
 app.listen(PORT, function(){ 
-	console.log("app is listening on port "+ PORT);  
+	console.log('app is listening on port '+ PORT);  
 }); 
 
  

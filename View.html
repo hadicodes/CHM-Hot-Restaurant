@@ -18,7 +18,7 @@
             <h2 class="text-center">Current Reservations and Waiting List</h2>
             <br>
             <div class="text-center">
-                <a href="/reserve">
+                <a href="/make">
                     <button type="button" class="btn btn-lg btn-success"><span class="glyphicon glyphicon-credit-card"></span> Make Reservation</button>
                 </a>
                 <a href="/">
@@ -49,7 +49,7 @@
         <footer class="footer">
             <div class="container">
                 <p>Control Panel</p>
-                <p><a href="#" id="clear">Clear Table</a> | <a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
+                <p><a href="/api/tables">API Table Link</a> | <a href="/api/waitlist">API Wait List</a></p>
             </div>
         </footer>
     </div>
@@ -61,7 +61,7 @@
                 newWell.attr("id", "reservation-well-" + i);
                 newWell.append("<span style='font-size: 24px' class='label label-primary'>" + (i + 1) + '</span>');
                 newWell.append("<span style='font-size: 24px; font-weight: bold;'> | " + data[i].customerID + '</span>');
-                $("#reservation-section").append(newWell);
+                $("#tableSection").append(newWell);
             }
         });
 
@@ -71,7 +71,7 @@
                 newWell.attr("id", "waitlist-well-" + i);
                 newWell.append("<span style='font-size: 24px' class='label label-primary'>" + (i + 1) + '</span>');
                 newWell.append("<span style='font-size: 24px; font-weight: bold;'> | " + data[i].customerID + '</span>');
-                $("#waitlist-section").append(newWell);
+                $("#waitlistSection").append(newWell);
             }
         });
 
